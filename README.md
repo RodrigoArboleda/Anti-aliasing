@@ -110,7 +110,6 @@ Com esta variação, notamos que se tem um overfitting ainda maior do que a cama
 [Implementing original U-Net from scratch using PyTorch](https://www.youtube.com/watch?v=u1loyDCoGbE)   
 [CIFAR-10 images](https://github.com/YoongiKim/CIFAR-10-images)   
 [Linnaeus 5 dataset](http://chaladze.com/l5/)   
-[CIFAR-10 images](https://github.com/YoongiKim/CIFAR-10-images)   
 [Stanford University School of Engineering Lecture | Deep Learning Software](https://www.youtube.com/watch?v=6SlgtELqOWc&list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk&index=8)   
 ## Alunos
 - Luan Ícaro Pinto Arcanjo - 10799230
