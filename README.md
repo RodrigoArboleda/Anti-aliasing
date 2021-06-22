@@ -105,6 +105,8 @@ Com esta variação, notamos que se tem um overfitting ainda maior do que a cama
 ![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/tabela%202048.png)
 ##### Imagem RGB Original
 ![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/rgb_imgs.jpg)
+## Notebook
+O código e sua execução pode ser conferida no notebook na pasta source do GitHub
 ## Referências
 [U-Net - Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597)   
 [Implementing original U-Net from scratch using PyTorch](https://www.youtube.com/watch?v=u1loyDCoGbE)   
