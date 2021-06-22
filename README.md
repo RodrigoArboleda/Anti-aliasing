@@ -11,10 +11,14 @@ Como o conjunto de dados no site oficial do CIFAR 10 vem em um formato diferente
 ### Tratando nomes das imagens
 Para realizar este tratamento é acessado todos os arquivos baixados de forma recursiva. Como cada arquivo de imagem está dentro da pasta da sua respectiva classe, é gerado um novo nome a ele que é a concatenação do nome de seu diretório (pasta da classe) mais o seu nome original, então é salvo em um novo diretório Esse passo de mudança de nome é muito importante pois algumas imagens possuem o mesmo nome, dificultando o trabalho. Este procedimento pode ser encontrado no arquivo: organize_data.py no repositório do GitHub.
 ### Convertendo para escala de cinzas
-As imagens do CIFAR 10 e do Linnaeus 5 são em RGB. As imagens em RGB são importantes para o treinamento do modelo, mas temos que fornecer como entrada imagens em escala de cinza. Para isso é preciso realizar uma conversão que ocorre de forma linear. A equação linear utilizada para tal é a seguinte:
-![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/rgb_form.jpg)
-Sendo o valor do canal R (Red - Vermelho) multiplicado por 0.299. O do canal G (Green - Verde) é multiplicado por 0.587. E por fim do canal B (Blue - Azul) por 0.114. No fim temos apenas um valor que representa o valor deste pixel em escala de cinzas. Essa combinação linear para conversão em escala e cinzas foi retirada da especificação do trabalho 5 da disciplina de processamento de imagem do professor Moacir Ponti - ICMC/USP.
+As imagens do CIFAR 10 e do Linnaeus 5 são em RGB. As imagens em RGB são importantes para o treinamento do modelo, mas temos que fornecer como entrada imagens em escala de cinza. Para isso é preciso realizar uma conversão que ocorre de forma linear. A equação linear utilizada para tal é a seguinte:   
+   
+![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/rgb_form.jpg)   
+   
+Sendo o valor do canal R (Red - Vermelho) multiplicado por 0.299. O do canal G (Green - Verde) é multiplicado por 0.587. E por fim do canal B (Blue - Azul) por 0.114. No fim temos apenas um valor que representa o valor deste pixel em escala de cinzas. Essa combinação linear para conversão em escala e cinzas foi retirada da especificação do trabalho 5 da disciplina de processamento de imagem do professor Moacir Ponti - ICMC/USP.   
+
 ![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/imgGray_RGB.jpg)
+   
 ## Etapas para geração da imagem RGB
 ### Importação das bibliotecas e inicialização de variáveis
 Para a execução do projeto, é necessário a instalação e importação das seguintes bibliotecas, utilizamos o PyTorch para a  implementação da rede neural e para realização dos testes.
@@ -35,26 +39,32 @@ import imageio
 Para realizar a conversão, será utilizado uma rede neural convolucional. Para isso, primeiro iremos definir sua arquitetura, realizar seu treinamento e só então realizar o processo de conversão de imagens.
 #### Arquitetura da Rede
 A rede realiza primeiro um encoder para extrair os parâmetros da imagem. Isso ocorre utilizando uma camada de convolução seguida de uma ReLU ( Retificador) duas vezes. Após isso, uma camada de pooling é utilizada para reduzir o tamanho pela metade. Esse procedimento é realizado mais uma vez. Para finalizar a fazer de enconding é aplicada mais uma camada de convolução.   
-Após isso é temos o decoder que irá gerar a saída da rede. Essa etapa irá consistir de uma camada linear, seguida de um ReLU e outra camada linear. Então teremos a saída da nossa rede com a imagem em RGB, abaixo tem uma representação gráfica da arquitetura da nossa rede.
-![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/encoder.jpg)
-![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/decoder.jpg)
+Após isso é temos o decoder que irá gerar a saída da rede. Essa etapa irá consistir de uma camada linear, seguida de um ReLU e outra camada linear. Então teremos a saída da nossa rede com a imagem em RGB, abaixo tem uma representação gráfica da arquitetura da nossa rede.   
+   
+![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/encoder.jpg)   
+![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/decoder.jpg)   
+   
 #### Organização das imagens para o treino da rede
 Para realizar o treinamento da rede neural, nosso dataset foi dividido em 2, um para treino e outro para teste. Além disso, o grupo de imagens para treino foi dividido em batches. Essa divisão em batches é importante para o treino da rede neural para o cálculo do gradiente e ajuste dos parâmetros em cada época.   
 Dado o grupo de imagens em escalas de cinza para treino completo, nós transformamos o conjunto em um conjunto de dados com média 0 e desvio padrão 1, pois este processo auxilia o treinamento da nossa rede neural.   
 Realizamos um processo parecido para as respectivas imagens RGB, realizamos uma normalização nos valores dos pixels para sempre estarem no intervalo [0,1], não possibilitamos o valor negativo a nossa imagem RGB, para se ter uma completa noção de qual intensidade do canal temos, pois se colocarmos média 0 e desvio padrão 1, não conseguimos ter uma compreensão de como os valores são mapeados ao intervalo original [0,255].
 #### Treinamento da rede
-Para a realização do treinamento, utilizamos como função de loss ( função de erro) da rede a função MSE, que é definida por:
-![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/loss_form.jpg)
+Para a realização do treinamento, utilizamos como função de loss ( função de erro) da rede a função MSE, que é definida por:   
+   
+![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/loss_form.jpg)   
+   
 Onde N é a quantidade de imagens, fié a i-ésima imagem RGB, que é gerada utilizando a rede neural a partir da i-ésima imagem em escalas de cinza do conjunto, e yi  sendo a imagem RGB verdadeira que a i-ésima imagem em escalas de cinza.   
 Em relação aos hiperparâmetros utilizados para o treinamento, utilizou um batch size de tamanho 100, learning rate de 0.0001, e treinou a rede neural durante 2000 épocas. Foi utilizado o otimizador Adam para o treinamento.
 ### Análise dos Resultados
 Para analisar o desempenho da rede neural e verificar se está convergindo para o resultado esperado, foi utilizado o valor da função Loss tanto para o conjunto de treino, quanto para o conjunto de testes.
 #### Gráfico de Loss do Treino e do Teste
-![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/tran_test_graphic%20.jpg)
+![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/tran_test_graphic%20.jpg)   
+   
 |                    |     ERRO FINAL     |
 | ------------------ | ------------------ |
 | CONJUNTO DE TREINO | 2.3465220669750124 |
-| CONJUNTO DE TESTE  | 1.4805386755615473 |
+| CONJUNTO DE TESTE  | 1.4805386755615473 |   
+   
 Podemos notar que a partir da época 250, começamos a ter um overfitting da rede neural para o conjunto de treino, pois a Loss no conjunto de teste passa a aumentar a partir deste ponto, começa a aumentar de valor.
 #### Exemplos de Imagens Gerada
 Abaixo, temos um conjunto de exemplo de imagens geradas do conjunto de testes, tendo as imagens em escalas de cinza, a imagem RGB gerada pela rede e a imagem RGB original
@@ -71,7 +81,8 @@ Inicialmente, se tentou utilizar uma versão alterada da rede U-Net para solucio
 |                    |     ERRO FINAL     |
 | ------------------ | ------------------ |
 | CONJUNTO DE TREINO | 28.65520852804184  |
-| CONJUNTO DE TESTE  | 6.70705895498395   |
+| CONJUNTO DE TESTE  | 6.70705895498395   |   
+   
 Podemos ver abaixo alguns resultados nada satisfatórios desta arquitetura:
 ##### Imagens em Escalas de Cinza
 ![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/gray_imgs.jpg)
@@ -85,7 +96,8 @@ Como podemos ver na arquitetura principal, temos uma camada que passa por uma Fu
 |                    |     ERRO FINAL     |
 | ------------------ | ------------------ |
 | CONJUNTO DE TREINO | 0.8541442838031799 |
-| CONJUNTO DE TESTE  | 1.3705658428370953 |
+| CONJUNTO DE TESTE  | 1.3705658428370953 |   
+   
 Com esta variação, notamos que se tem um overfitting ainda maior do que a camada com tamanho 512, podemos ver abaixo alguns resultados desta alteração. Podemos notar que temos algumas cores mais fidedignas que a versão original, porém temos a impressão de que as imagens estão manchadas.
 ##### Imagens em Escalas de Cinza
 ![alt text](https://github.com/RodrigoArboleda/Grayscale-to-RGB/blob/main/img/gray_imgs.jpg)
