@@ -154,7 +154,7 @@ O código de Demonstração e sua execução pode ser coferido no notebook denom
 
 ## Apresentação
 
-Para se acessar o vídeo com a apresentação do projeto, [clique aqui.](https://github.com/YoongiKim/CIFAR-10-images)
+Para se acessar o vídeo com a apresentação do projeto, [clique aqui.](https://drive.google.com/file/d/1ONwIo9DE7bmXMlP0oLNzAsV7bkn9YAWY/view?usp=sharing)
 
 ## Referências
 [U-Net - Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597)   
