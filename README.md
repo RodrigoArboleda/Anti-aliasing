@@ -148,7 +148,9 @@ O otimizador Reduce LR On Plateau altera o learning rate dinamicamente ao decorr
    
 Como podemos ver, com este otimizador, acabamos tendo um comportamento bem estranho na função de custo do conjunto de validação, ela acaba não tendo um comportamento nada esperado, e também acabamos caindo em um mínimo local rapidamente, após cerca de 300 épocas, e este mínimo local acaba tendo um erro ainda maior no conjunto de treino e de validação dos testes anteriores, o que nos fez escolher por não utilizarmos este otimizador no modelo final.
 ## Notebook
-O código e sua execução pode ser conferida no notebook na pasta source do GitHub
+O código principal e sua execução pode ser conferida no notebook denominado pdi_trabalho.ipynb  na pasta source do GitHub
+
+O código de Demonstração e sua execução pode ser coferido no notebook denominado Demonstracao.ipynb na pasta source do GitHub
 ## Referências
 [U-Net - Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597)   
 [Implementing original U-Net from scratch using PyTorch](https://www.youtube.com/watch?v=u1loyDCoGbE)   
